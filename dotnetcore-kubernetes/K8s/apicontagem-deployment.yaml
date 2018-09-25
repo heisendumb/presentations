@@ -1,43 +1,24 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert -f ../docker-compose.yaml
-    kompose.version: 1.14.0 (fa706f2)
-  creationTimestamp: null
-  labels:
-    io.kompose.service: apicontagem
-  name: apicontagem
+  name: apicontagem-deployment
 spec:
   replicas: 1
-  strategy: {}
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: apicontagem
+        app: apicontagem
     spec:
       containers:
-      - env:
-        - name: 'DOCKER_REGISTRY_SERVER_PASSWORD '
-          value: ''
-        - name: 'DOCKER_REGISTRY_SERVER_URL '
-          value: ''
-        - name: 'DOCKER_REGISTRY_SERVER_USERNAME '
-          value: ''
-        image: [azure-container-registry-name].azurecr.io/apicontagem:latest
-        livenessProbe:
-          exec:
-            command:
-            - curl
-            - -f
-            - http://localhost/api/contador
-          failureThreshold: 3
-          periodSeconds: 90
-          timeoutSeconds: 10
-        name: apicontagem
+      - name: apicontagem
+        image: w2registry.azurecr.io/apicontagem:latest
         ports:
         - containerPort: 80
-        resources: {}
-      restartPolicy: Always
-status: {}
+      imagePullSecrets:
+        - name: apicontagemregistrykey
