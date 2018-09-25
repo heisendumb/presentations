@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  apicontagem:
+    image: apicontagem:1.0.0
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: apicontagem
+    ports:
+      - 80:80
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/api/contador"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+

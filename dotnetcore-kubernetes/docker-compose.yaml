@@ -2,10 +2,10 @@ version: '3'
 
 services:
   apicontagem:
-    image: apicontagem:1.0.0
-    build:
-      context: ./
-      dockerfile: Dockerfile
+    image: [azure-container-registry-name].azurecr.io/apicontagem:latest
+    #build:
+    #  context: ./
+    #  dockerfile: Dockerfile
     container_name: apicontagem
     ports:
       - 80:80
@@ -14,4 +14,7 @@ services:
       interval: 1m30s
       timeout: 10s
       retries: 3
-
+    environment:
+      - DOCKER_REGISTRY_SERVER_USERNAME = [azure-container-registry-name]
+      - DOCKER_REGISTRY_SERVER_URL = [azure-container-registry-name].azurecr.io
+      - DOCKER_REGISTRY_SERVER_PASSWORD = [password]

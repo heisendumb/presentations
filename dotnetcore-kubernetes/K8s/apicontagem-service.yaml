@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f ../docker-compose.yaml
+    kompose.version: 1.14.0 (fa706f2)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: apicontagem
+  name: apicontagem
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    targetPort: 80
+  selector:
+    io.kompose.service: apicontagem
+status:
+  loadBalancer: {}
