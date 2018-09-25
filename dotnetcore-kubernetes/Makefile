@@ -8,3 +8,6 @@ build:
 
 run: build
 	docker run -d -p 80:80 --name $(MYAPP) $(MYAPP):$(VERSION)
+
+compose:
+	docker-compose up -d --build

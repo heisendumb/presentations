@@ -9,7 +9,7 @@ COPY API ./
 RUN dotnet restore \
     && dotnet publish -c Release -o out
 
-# Runtime
+# Runtime container
 FROM microsoft/dotnet:2.1-runtime
 WORKDIR /api
 COPY --from=build /API/APIContagem/out .
