@@ -18,7 +18,14 @@ spec:
         io.kompose.service: apicontagem
     spec:
       containers:
-      - image: apicontagem:1.0.0
+      - env:
+        - name: 'DOCKER_REGISTRY_SERVER_PASSWORD '
+          value: ''
+        - name: 'DOCKER_REGISTRY_SERVER_URL '
+          value: ''
+        - name: 'DOCKER_REGISTRY_SERVER_USERNAME '
+          value: ''
+        image: [azure-container-registry-name].azurecr.io/apicontagem:latest
         livenessProbe:
           exec:
             command:
