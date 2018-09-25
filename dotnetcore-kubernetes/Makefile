@@ -1,7 +1,7 @@
 VERSION := "1.0.0"
 MYAPP := "apicontagem"
 
-all: run
+all: compose
 
 build:
 	docker build --compress --force-rm -t $(MYAPP):$(VERSION) .
@@ -11,3 +11,9 @@ run: build
 
 compose:
 	docker-compose up -d --build
+
+tag:
+	docker tag $(MYAPP):$(VERSION) w2registry.azurecr.io/$(MYAPP)
+
+push: tag
+	docker push w2registry.azurecr.io/${MYAPP}
