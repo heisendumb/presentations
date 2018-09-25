@@ -13,7 +13,7 @@ compose:
 	docker-compose up -d --build
 
 tag:
-	docker tag $(MYAPP):$(VERSION) w2registry.azurecr.io/$(MYAPP)
+	docker tag $(MYAPP):$(VERSION) [azure-container-registry-name].azurecr.io/$(MYAPP)
 
 push: tag
-	docker push w2registry.azurecr.io/${MYAPP}
+	docker push [azure-container-registry-name].azurecr.io/${MYAPP}
